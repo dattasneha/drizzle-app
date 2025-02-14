@@ -1,4 +1,4 @@
-package com.snehadatta;
+package com.snehadatta.drizzle;
 
 import android.app.Application;
 
