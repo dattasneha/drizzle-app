@@ -2,10 +2,9 @@
 <resources>
     <color name="background_gradient_color2">#C496FB</color>
     <color name="background_gradient_color1">#EAE0F0</color>
-
-
     <color name="transparent">#66EAE0F0</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="black">#000000</color>
     <color name="border_color">#000000</color>
-
+    <color name="primary_color">#C496FB</color>
 </resources>
