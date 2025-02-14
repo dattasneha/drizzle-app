@@ -3,64 +3,44 @@ package com.snehadatta.drizzle.presentation.currentWeather;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.snehadatta.drizzle.R;
+import com.snehadatta.drizzle.databinding.FragmentCurrentWeatherBinding;
+import com.snehadatta.drizzle.model.HourlyWeather;
+import com.snehadatta.drizzle.presentation.currentWeather.adapter.CurrentWeatherHourlyUpdateRecycleViewAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CurrentWeatherFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class CurrentWeatherFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public CurrentWeatherFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CurrentWeatherFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CurrentWeatherFragment newInstance(String param1, String param2) {
-        CurrentWeatherFragment fragment = new CurrentWeatherFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private FragmentCurrentWeatherBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_current_weather, container, false);
+        binding = FragmentCurrentWeatherBinding.inflate(inflater,container,false);
+        View view = binding.getRoot();
+
+        List<HourlyWeather> hourlyWeatherList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            hourlyWeatherList.add(new HourlyWeather("12 PM", "19°", R.drawable.ic_day_113));
+        }
+
+        binding.hourlyUpdateRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.hourlyUpdateRecycleView.setAdapter(new CurrentWeatherHourlyUpdateRecycleViewAdapter(hourlyWeatherList));
+
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
