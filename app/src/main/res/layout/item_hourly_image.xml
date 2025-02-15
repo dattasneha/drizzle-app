@@ -18,7 +18,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="8dp">
 
             <TextView
                 android:id="@+id/hour_time"
@@ -38,8 +39,6 @@
                 android:layout_marginVertical="20dp"
                 android:importantForAccessibility="no"
                 android:scaleType="centerCrop"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,4 +1,4 @@
-package com.snehadatta.drizzle.model;
+package com.snehadatta.drizzle.presentation.model;
 
 public class HourlyWeather {
     private String hourTime;

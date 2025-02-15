@@ -1,4 +1,4 @@
-package com.snehadatta.drizzle.presentation.currentWeather;
+package com.snehadatta.drizzle.presentation.current_weather;
 
 import android.os.Bundle;
 
@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 
 import com.snehadatta.drizzle.R;
 import com.snehadatta.drizzle.databinding.FragmentCurrentWeatherBinding;
-import com.snehadatta.drizzle.model.HourlyWeather;
-import com.snehadatta.drizzle.presentation.currentWeather.adapter.CurrentWeatherHourlyUpdateRecycleViewAdapter;
+import com.snehadatta.drizzle.presentation.model.HourlyWeather;
+import com.snehadatta.drizzle.presentation.current_weather.adapter.CurrentWeatherHourlyUpdateRecycleViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

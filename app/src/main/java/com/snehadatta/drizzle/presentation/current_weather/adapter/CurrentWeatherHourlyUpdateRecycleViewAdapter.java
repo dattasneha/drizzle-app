@@ -1,17 +1,13 @@
-package com.snehadatta.drizzle.presentation.currentWeather.adapter;
+package com.snehadatta.drizzle.presentation.current_weather.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.card.MaterialCardView;
 import com.snehadatta.drizzle.databinding.ItemHourlyImageBinding;
-import com.snehadatta.drizzle.model.HourlyWeather;
+import com.snehadatta.drizzle.presentation.model.HourlyWeather;
 
 import java.util.List;
 

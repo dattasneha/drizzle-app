@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fragment_background_gradient"
-    tools:context=".presentation.currentWeather.CurrentWeatherFragment"
+    tools:context=".presentation.current_weather.CurrentWeatherFragment"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,11 +86,12 @@
             android:id="@+id/hourly_update_recycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="24dp"
+            android:paddingHorizontal="24dp"
+            android:clipToPadding="false"
             tools:itemCount="5"
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
-            tools:context = ".presentation.currentWeather.CurrentWeatherFragment"
+            tools:context = ".presentation.current_weather.CurrentWeatherFragment"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

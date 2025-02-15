@@ -56,4 +56,5 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
     annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.fragment)
 }
