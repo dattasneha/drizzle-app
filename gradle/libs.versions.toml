@@ -16,6 +16,7 @@ lifecycleViewmodelKtx = "2.8.6"
 fragmentKtx = "1.8.4"
 room = "2.6.1"
 fragment = "1.5.8"
+androidx-preference = "1.2.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -37,6 +38,7 @@ androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecy
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
 fragment = { module = "androidx.fragment:fragment", version.ref = "fragment" }
+androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "androidx-preference" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

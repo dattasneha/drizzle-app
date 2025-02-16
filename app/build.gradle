@@ -57,4 +57,5 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.fragment)
+    implementation(libs.androidx.preference)
 }
