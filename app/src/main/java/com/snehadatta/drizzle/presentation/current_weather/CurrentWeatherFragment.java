@@ -81,7 +81,7 @@ public class CurrentWeatherFragment extends Fragment {
                 binding.windDir.setText(String.format(Locale.US, "Dir: %s", data.getCurrent().getWindDir()));
                 binding.humidityData.setText(String.format(Locale.US, "%d", data.getCurrent().getHumidity()));
                 binding.rainData.setText(String.format(Locale.US, "%d", data.getForecast().getForecastday().get(0).getDay().getDailyChanceOfRain()));
-                binding.snowData.setText(String.format(Locale.US, "%d", data.getForecast().getForecastday().get(0).getDay().getDailyChanceOfRain()));
+                binding.snowData.setText(String.format(Locale.US, "%d", data.getForecast().getForecastday().get(0).getDay().getDailyChanceOfSnow()));
 
             } else if (resource instanceof Resource.Error) {
                 binding.progressBar.setVisibility(View.GONE);
