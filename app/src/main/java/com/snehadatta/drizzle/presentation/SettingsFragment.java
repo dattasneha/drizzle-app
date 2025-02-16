@@ -90,8 +90,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, @Nullable String key) {
         assert key != null;
         if (key.equals(KEY_USE_DEVICE_LOCATION) || key.equals(KEY_CUSTOM_LOCATION)) {
-            showRestartDialog(this::updateSummary);
-            requireActivity().recreate();
+            showRestartDialog(() -> {
+                updateSummary();
+                requireActivity().recreate();
+            });
         }
 
     }
