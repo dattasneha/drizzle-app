@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
     private SharedPreferences sharedPreferences;
     private  String  API_KEY = "fba9573acc654d7a995110405240808";
-    private int days = 2;
+    private int days = 3;
     private String aqi = "yes";
     private String alerts = "yes";
     private String lastLocation = "";

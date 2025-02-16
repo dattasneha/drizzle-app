@@ -41,7 +41,7 @@ public class CurrentWeatherFragment extends Fragment {
         View view = binding.getRoot();
         mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
-        mainViewModel.getForecastLiveData().observe(this, resource -> {
+        mainViewModel.getForecastLiveData().observe(getViewLifecycleOwner(), resource -> {
             if (resource instanceof Resource.Loading) {
                 binding.progressBar.setVisibility(View.VISIBLE);
             } else if (resource instanceof Resource.Success) {

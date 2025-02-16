@@ -2,65 +2,116 @@ package com.snehadatta.drizzle.presentation.future_weather;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.snehadatta.drizzle.R;
+import com.snehadatta.drizzle.data.model.ForecastResponse;
+import com.snehadatta.drizzle.data.model.Hour;
+import com.snehadatta.drizzle.databinding.FragmentFutureWeatherBinding;
+import com.snehadatta.drizzle.presentation.MainViewModel;
+import com.snehadatta.drizzle.presentation.current_weather.adapter.CurrentWeatherHourlyUpdateRecycleViewAdapter;
+import com.snehadatta.drizzle.presentation.model.DateFormat;
+import com.snehadatta.drizzle.presentation.model.HourlyWeather;
+import com.snehadatta.drizzle.util.Resource;
+import com.snehadatta.drizzle.util.WeatherIconMapper;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FutureWeatherFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class FutureWeatherFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentFutureWeatherBinding binding;
+    private MainViewModel mainViewModel;
 
     public FutureWeatherFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FutureWeatherFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FutureWeatherFragment newInstance(String param1, String param2) {
-        FutureWeatherFragment fragment = new FutureWeatherFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_future_weather, container, false);
+       binding = FragmentFutureWeatherBinding.inflate(inflater,container,false);
+       View view = binding.getRoot();
+
+        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
+        mainViewModel.getForecastLiveData().observe(getViewLifecycleOwner(),resource -> {
+            if (resource instanceof Resource.Loading) {
+                binding.progressBar.setVisibility(View.VISIBLE);
+            }else if (resource instanceof Resource.Success) {
+                binding.progressBar.setVisibility(View.GONE);
+                ForecastResponse data = resource.getData();
+                binding.location1.setText(data.getLocation().getName());
+                binding.location2.setText(data.getLocation().getName());
+                binding.location3.setText(data.getLocation().getName());
+
+
+                DateFormat dateFormat;
+                dateFormat = new DateFormat(data.getForecast().getForecastday().get(0).getHour().get(0).getTime());
+                binding.date1.setText(dateFormat.getFormattedDate());
+                dateFormat = new DateFormat(data.getForecast().getForecastday().get(1).getHour().get(0).getTime());
+                binding.date2.setText(dateFormat.getFormattedDate());
+                dateFormat = new DateFormat(data.getForecast().getForecastday().get(2).getHour().get(0).getTime());
+                binding.date3.setText(dateFormat.getFormattedDate());
+
+                List<HourlyWeather> hourlyWeatherList1 = new ArrayList<>();
+                int noOfHours = data.getForecast().getForecastday().get(0).getHour().size();
+                for (int i = 0; i < noOfHours; i++) {
+                    Hour hour = data.getForecast().getForecastday().get(0).getHour().get(i);
+                    String temp = String.valueOf(hour.getTempC());
+                    String time = hour.getTime();
+
+                    int icon = WeatherIconMapper.getWeatherIcon(this.getResources(), hour.getCondition().getIcon(), hour.getIsDay());
+
+                    hourlyWeatherList1.add(new HourlyWeather(time, temp+"°", icon));
+                }
+
+                binding.hourlyUpdateRecycleView1.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+                binding.hourlyUpdateRecycleView1.setAdapter(new CurrentWeatherHourlyUpdateRecycleViewAdapter(hourlyWeatherList1));
+
+                List<HourlyWeather> hourlyWeatherList2 = new ArrayList<>();
+                for (int i = 0; i < noOfHours; i++) {
+                    Hour hour = data.getForecast().getForecastday().get(1).getHour().get(i);
+                    String temp = String.valueOf(hour.getTempC());
+                    String time = hour.getTime();
+
+                    int icon = WeatherIconMapper.getWeatherIcon(this.getResources(), hour.getCondition().getIcon(), hour.getIsDay());
+
+                    hourlyWeatherList2.add(new HourlyWeather(time, temp+"°", icon));
+                }
+
+                binding.hourlyUpdateRecycleView2.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+                binding.hourlyUpdateRecycleView2.setAdapter(new CurrentWeatherHourlyUpdateRecycleViewAdapter(hourlyWeatherList1));
+
+                List<HourlyWeather> hourlyWeatherList3 = new ArrayList<>();
+                for (int i = 0; i < noOfHours; i++) {
+                    Hour hour = data.getForecast().getForecastday().get(0).getHour().get(i);
+                    String temp = String.valueOf(hour.getTempC());
+                    String time = hour.getTime();
+
+                    int icon = WeatherIconMapper.getWeatherIcon(this.getResources(), hour.getCondition().getIcon(), hour.getIsDay());
+
+                    hourlyWeatherList3.add(new HourlyWeather(time, temp+"°", icon));
+                }
+
+                binding.hourlyUpdateRecycleView3.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+                binding.hourlyUpdateRecycleView3.setAdapter(new CurrentWeatherHourlyUpdateRecycleViewAdapter(hourlyWeatherList1));
+            }
+        });
+
+       return view;
     }
 }
