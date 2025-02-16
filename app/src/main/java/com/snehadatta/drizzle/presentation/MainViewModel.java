@@ -19,7 +19,15 @@ import retrofit2.Response;
 public class MainViewModel extends ViewModel {
     private final MainRepository mainRepository;
     private final MutableLiveData<Resource<ForecastResponse>> forecastLiveData = new MutableLiveData<>();
+    private final MutableLiveData<String> locationLiveData = new MutableLiveData<>();
 
+    public void setLocation(String location) {
+        locationLiveData.setValue(location);
+    }
+
+    public LiveData<String> getLocation() {
+        return locationLiveData;
+    }
     @Inject
     public MainViewModel(MainRepository mainRepository) {
         this.mainRepository = mainRepository;

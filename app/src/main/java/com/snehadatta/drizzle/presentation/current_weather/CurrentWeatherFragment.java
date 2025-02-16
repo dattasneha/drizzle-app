@@ -33,21 +33,15 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class CurrentWeatherFragment extends Fragment {
     private FragmentCurrentWeatherBinding binding;
-    private  String  API_KEY = "fba9573acc654d7a995110405240808";
-    private int days = 2;
-    private String aqi = "yes";
-    private String alerts = "yes";
+    private MainViewModel mainViewModel;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentCurrentWeatherBinding.inflate(inflater,container,false);
+        binding = FragmentCurrentWeatherBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
-        MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
-        viewModel.getForeCast(API_KEY,"Kolkata", days,aqi,alerts);
-
-        viewModel.getForecastLiveData().observe(getViewLifecycleOwner(), resource -> {
+        mainViewModel.getForecastLiveData().observe(this, resource -> {
             if (resource instanceof Resource.Loading) {
                 binding.progressBar.setVisibility(View.VISIBLE);
             } else if (resource instanceof Resource.Success) {
