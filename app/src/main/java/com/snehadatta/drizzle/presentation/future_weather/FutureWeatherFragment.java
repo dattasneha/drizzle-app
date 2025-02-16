@@ -59,13 +59,12 @@ public class FutureWeatherFragment extends Fragment {
                 binding.location3.setText(data.getLocation().getName());
 
 
-                DateFormat dateFormat;
-                dateFormat = new DateFormat(data.getForecast().getForecastday().get(0).getHour().get(0).getTime());
-                binding.date1.setText(dateFormat.getFormattedDate());
-                dateFormat = new DateFormat(data.getForecast().getForecastday().get(1).getHour().get(0).getTime());
-                binding.date2.setText(dateFormat.getFormattedDate());
-                dateFormat = new DateFormat(data.getForecast().getForecastday().get(2).getHour().get(0).getTime());
-                binding.date3.setText(dateFormat.getFormattedDate());
+
+                binding.date1.setText(new DateFormat(data.getForecast().getForecastday().get(0).getDate()).getFormattedDate());
+
+                binding.date2.setText(new DateFormat(data.getForecast().getForecastday().get(1).getDate()).getFormattedDate());
+
+                binding.date3.setText(new DateFormat(data.getForecast().getForecastday().get(2).getDate()).getFormattedDate());
 
                 List<HourlyWeather> hourlyWeatherList1 = new ArrayList<>();
                 int noOfHours = data.getForecast().getForecastday().get(0).getHour().size();
