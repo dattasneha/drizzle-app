@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.snehadatta.drizzle.R;
 import com.snehadatta.drizzle.data.model.ForecastResponse;
@@ -108,6 +109,12 @@ public class FutureWeatherFragment extends Fragment {
 
                 binding.hourlyUpdateRecycleView3.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 binding.hourlyUpdateRecycleView3.setAdapter(new CurrentWeatherHourlyUpdateRecycleViewAdapter(hourlyWeatherList1));
+            }
+            else if (resource instanceof Resource.Error) {
+                binding.progressBar.setVisibility(View.GONE);
+                String errorMessage = resource.getMessage();
+
+                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
             }
         });
 
