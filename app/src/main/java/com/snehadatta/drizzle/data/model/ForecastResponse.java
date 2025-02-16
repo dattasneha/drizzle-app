@@ -17,6 +17,7 @@ public class ForecastResponse {
     public ForecastResponse(Current current, Forecast forecast, Location location) {
         this.current = current;
         this.forecast = forecast;
+        this.location = location;
     }
 
     // Getters and Setters

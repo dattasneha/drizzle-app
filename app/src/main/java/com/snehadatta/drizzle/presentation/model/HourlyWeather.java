@@ -1,5 +1,10 @@
 package com.snehadatta.drizzle.presentation.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class HourlyWeather {
     private String hourTime;
     private String hourlyTemp;
@@ -12,7 +17,16 @@ public class HourlyWeather {
     }
 
     public String getHourTime() {
-        return hourTime;
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("hh:mm a", Locale.US); // 12-hour format with AM/PM
+
+        try {
+            Date date = inputFormat.parse(hourTime);
+            return outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return hourTime;
+        }
     }
 
     public String getHourlyTemp() {
@@ -23,4 +37,3 @@ public class HourlyWeather {
         return weatherIcon;
     }
 }
-

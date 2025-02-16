@@ -1,6 +1,5 @@
 package com.snehadatta.drizzle.domain;
 
-import com.snehadatta.drizzle.data.ApiResponse;
 import com.snehadatta.drizzle.data.MainApi;
 import com.snehadatta.drizzle.data.model.ForecastResponse;
 
@@ -17,7 +16,7 @@ public class MainRepositoryImpl implements MainRepository {
     }
 
     @Override
-    public Call<ApiResponse<ForecastResponse>> getForeCast(String apiKey, String location, int days, String aqi, String alerts) {
+    public Call<ForecastResponse> getForeCast(String apiKey, String location, int days, String aqi, String alerts) {
         return apiService.getForeCast(apiKey, location, days, aqi, alerts);
     }
 }

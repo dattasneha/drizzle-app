@@ -1,5 +1,6 @@
 package com.snehadatta.drizzle.presentation.current_weather.adapter;
 
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -20,14 +21,16 @@ public class CurrentWeatherHourlyUpdateRecycleViewAdapter extends RecyclerView.A
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ItemHourlyImageBinding binding;
-        public ViewHolder(ItemHourlyImageBinding binding) {
+        Resources resources;
+        public ViewHolder(ItemHourlyImageBinding binding, Resources resources) {
             super(binding.getRoot());
             this.binding = binding;
+            this.resources = resources;
         }
 
         public void bind(HourlyWeather item) {
             binding.hourTime.setText(item.getHourTime());
-            binding.hourlyTemp.setText(item.getHourlyTemp());
+            binding.hourlyTemp.setText(item.getHourlyTemp() + " C");
             binding.hourlyWeather.setImageResource(item.getWeatherIcon());
         }
     }
@@ -36,7 +39,7 @@ public class CurrentWeatherHourlyUpdateRecycleViewAdapter extends RecyclerView.A
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemHourlyImageBinding binding = ItemHourlyImageBinding.inflate(
                 LayoutInflater.from(parent.getContext()), parent, false);
-        return new ViewHolder(binding);
+        return new ViewHolder(binding, parent.getResources());
     }
 
     @Override
@@ -48,6 +51,4 @@ public class CurrentWeatherHourlyUpdateRecycleViewAdapter extends RecyclerView.A
     public int getItemCount() {
         return hourlyWeatherList.size();
     }
-
-
 }

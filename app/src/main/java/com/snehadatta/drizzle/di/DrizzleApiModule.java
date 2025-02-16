@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 @InstallIn(SingletonComponent.class)
 public final class DrizzleApiModule {
-    public static final String BASE_URL = "http://api.weatherapi.com/v1/";
+    public static final String BASE_URL = "https://api.weatherapi.com/v1/";
     @Provides
     @Singleton
     public OkHttpClient provideOkHttpClient() {

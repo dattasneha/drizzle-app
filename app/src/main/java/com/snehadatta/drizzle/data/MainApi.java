@@ -8,11 +8,11 @@ import retrofit2.http.Query;
 
 public interface MainApi {
     @GET("forecast.json")
-    Call<ApiResponse<ForecastResponse>> getForeCast(
-        @Query("key")String apiKey,
-        @Query("q") String location,
-        @Query("days") int days,
-        @Query("aqi") String aqi,
-        @Query("alerts") String alerts
+    Call<ForecastResponse> getForeCast(
+            @Query("key")String apiKey,
+            @Query("q") String location,
+            @Query("days") int days,
+            @Query("aqi") String aqi,
+            @Query("alerts") String alerts
     );
 }

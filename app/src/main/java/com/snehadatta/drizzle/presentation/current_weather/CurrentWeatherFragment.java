@@ -21,13 +21,16 @@ import com.snehadatta.drizzle.presentation.MainViewModel;
 import com.snehadatta.drizzle.presentation.current_weather.adapter.CurrentWeatherHourlyUpdateRecycleViewAdapter;
 import com.snehadatta.drizzle.presentation.model.HourlyWeather;
 import com.snehadatta.drizzle.util.Resource;
+import com.snehadatta.drizzle.util.WeatherIconMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class CurrentWeatherFragment extends Fragment {
     private FragmentCurrentWeatherBinding binding;
     private  String  API_KEY = "fba9573acc654d7a995110405240808";
@@ -55,10 +58,18 @@ public class CurrentWeatherFragment extends Fragment {
                 binding.progressBar.setVisibility(View.GONE);
                 ForecastResponse data = resource.getData();
 
-                binding.locationTextView.setText(data.getLocation().toString());
-                binding.weatherTextView.setText(data.getCurrent().getCondition().getCode());
+                binding.locationTextView.setText(data.getLocation().getName());
+                binding.tempTextView.setText(String.format(Locale.US, "%.1f° C", data.getCurrent().getTempC()));
+                binding.weatherTextView.setText(data.getCurrent().getCondition().getText());
                 binding.feelsLikeTextView.setText(
-                        String.format(Locale.US, "Feels Like: %.1f°", data.getCurrent().getFeelslikeC())
+                        String.format(Locale.US, "Feels Like: %.1f° C", data.getCurrent().getFeelslikeC())
+                );
+                binding.weatherImageView.setImageResource(
+                        WeatherIconMapper.getWeatherIcon(
+                                getResources(),
+                                data.getCurrent().getCondition().getIcon(),
+                                data.getCurrent().getIsDay()
+                        )
                 );
 
                 List<HourlyWeather> hourlyWeatherList = new ArrayList<>();
@@ -67,7 +78,10 @@ public class CurrentWeatherFragment extends Fragment {
                     Hour hour = data.getForecast().getForecastday().get(0).getHour().get(i);
                     String temp = String.valueOf(hour.getTempC());
                     String time = hour.getTime();
-                    hourlyWeatherList.add(new HourlyWeather(time, temp+"°", R.drawable.ic_day_113));
+
+                    int icon = WeatherIconMapper.getWeatherIcon(this.getResources(), hour.getCondition().getIcon(), hour.getIsDay());
+
+                    hourlyWeatherList.add(new HourlyWeather(time, temp+"°", icon));
                 }
                 binding.hourlyUpdateRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 binding.hourlyUpdateRecycleView.setAdapter(new CurrentWeatherHourlyUpdateRecycleViewAdapter(hourlyWeatherList));
@@ -77,7 +91,7 @@ public class CurrentWeatherFragment extends Fragment {
                 binding.progressBar.setVisibility(View.GONE);
                 String errorMessage = resource.getMessage();
 
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
             }
         });
 
