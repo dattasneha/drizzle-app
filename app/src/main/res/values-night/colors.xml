@@ -2,7 +2,7 @@
 <resources>
     <color name="background_gradient_color1">#2E335A</color>
     <color name="background_gradient_color2">#1C1B33</color>
-    <color name="transparent">#662E335A</color>
+    <color name="transparent">#3A3061</color>
     <color name="border_color">#FFFFFFFF</color>
     <color name="primary_color">#1C1B33</color>
     <color name="white">#FFFFFFFF</color>

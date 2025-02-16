@@ -76,6 +76,12 @@ public class CurrentWeatherFragment extends Fragment {
                 binding.hourlyUpdateRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 binding.hourlyUpdateRecycleView.setAdapter(new CurrentWeatherHourlyUpdateRecycleViewAdapter(hourlyWeatherList));
 
+                binding.uvData.setText(String.format(Locale.US, "%.1f", data.getCurrent().getUv()));
+                binding.windSpeed.setText(String.format(Locale.US, "Speed: %.1fkm/h", data.getCurrent().getWindKph()));
+                binding.windDir.setText(String.format(Locale.US, "Dir: %s", data.getCurrent().getWindDir()));
+                binding.humidityData.setText(String.format(Locale.US, "%d", data.getCurrent().getHumidity()));
+                binding.rainData.setText(String.format(Locale.US, "%d", data.getForecast().getForecastday().get(0).getDay().getDailyChanceOfRain()));
+                binding.snowData.setText(String.format(Locale.US, "%d", data.getForecast().getForecastday().get(0).getDay().getDailyChanceOfRain()));
 
             } else if (resource instanceof Resource.Error) {
                 binding.progressBar.setVisibility(View.GONE);
