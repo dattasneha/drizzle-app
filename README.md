@@ -2,7 +2,7 @@
 Drizzle is a weather forecast app built using Java, allowing users to check current and future weather conditions for their location and selected locations.
 
 ## Screenshots
-<img src="https://github.com/user-attachments/assets/4db25a4e-77d8-435a-879d-c77c96940368" width=300/>
+<img src="https://github.com/user-attachments/assets/03c93c35-5d99-4411-ac3f-9d605e6ed8cb" width=300/>
 <img src="https://github.com/user-attachments/assets/db276c06-f30d-420f-9c95-26d260c3f778" width=300/>
 <img src="https://github.com/user-attachments/assets/f5c98907-0c34-4357-b1f9-6c3f02c2115f" width=300/>
 <img src="https://github.com/user-attachments/assets/0d411de1-64be-461f-afd6-3154377761e3" width=300/>
