@@ -43,10 +43,6 @@ public class CurrentWeatherFragment extends Fragment {
         binding = FragmentCurrentWeatherBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
 
-        if (getActivity() instanceof AppCompatActivity) {
-            Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).hide();
-        }
-
         MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         viewModel.getForeCast(API_KEY,"Kolkata", days,aqi,alerts);
@@ -102,8 +98,5 @@ public class CurrentWeatherFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        if (getActivity() instanceof AppCompatActivity) {
-            Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).show();
-        }
     }
 }

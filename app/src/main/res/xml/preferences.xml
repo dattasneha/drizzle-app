@@ -15,4 +15,24 @@
             android:defaultValue="Kolkata"
             android:dependency="USE_Device_Location"/>
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Appearance">
+        <ListPreference
+            android:key="THEME_PREFERENCE"
+            android:title="Theme"
+            android:summary="Choose between Light, Dark, or System default"
+            android:dialogTitle="Select Theme"
+            android:defaultValue="system"
+            android:entries="@array/theme_options"
+            android:entryValues="@array/theme_values"/>
+        <ListPreference
+            android:key="FONT_SIZE_PREFERENCE"
+            android:title="Font Size"
+            android:summary="Choose your preferred font size"
+            android:dialogTitle="Select Font Size"
+            android:defaultValue="medium"
+            android:entries="@array/font_size_options"
+            android:entryValues="@array/font_size_values" />
+    </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

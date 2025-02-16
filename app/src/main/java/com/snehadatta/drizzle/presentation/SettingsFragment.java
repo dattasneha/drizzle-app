@@ -5,13 +5,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.snehadatta.drizzle.R;
 
@@ -21,6 +22,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
     private static final String KEY_USE_DEVICE_LOCATION = "USE_Device_Location";
     private static final String KEY_CUSTOM_LOCATION = "CUSTOM_LOCATION";
+    private static final String KEY_THEME_PREFERENCE = "THEME_PREFERENCE";
+    private static final String KEY_FONT_SIZE_PREFERENCE = "FONT_SIZE_PREFERENCE";
     public SettingsFragment() {
         // Required empty public constructor
     }
@@ -41,6 +44,32 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
         updateSummary();
+
+        ListPreference themePreference = findPreference(KEY_THEME_PREFERENCE);
+        ListPreference fontSizePreference = findPreference(KEY_FONT_SIZE_PREFERENCE);
+
+        if (themePreference != null) {
+            themePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                showRestartDialog(() -> applyTheme((String) newValue));
+                return false; // Prevent automatic change before confirmation
+            });
+        }
+
+        if (fontSizePreference != null) {
+            fontSizePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                showRestartDialog(() -> applyFontSize((String) newValue));
+                return false;
+            });
+        }
+    }
+
+    private void showRestartDialog(Runnable onConfirm) {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Restart Required")
+                .setMessage("Changing this setting will restart the app. Do you want to continue?")
+                .setPositiveButton("Yes", (dialog, which) -> onConfirm.run())
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
 
@@ -84,5 +113,21 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 customLocationPref.setSummary("Current: " + customLocation);
             }
         }
+    }
+
+    private void applyTheme(String themeValue) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(requireContext()).edit();
+        editor.putString(KEY_THEME_PREFERENCE, themeValue);
+        editor.apply();
+
+        requireActivity().recreate(); // Restart activity to apply theme
+    }
+
+    private void applyFontSize(String fontSize) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(requireContext()).edit();
+        editor.putString(KEY_FONT_SIZE_PREFERENCE, fontSize);
+        editor.apply();
+
+        requireActivity().recreate(); // Restart activity to apply font size
     }
 }
