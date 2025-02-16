@@ -61,6 +61,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 return false;
             });
         }
+//
     }
 
     private void showRestartDialog(Runnable onConfirm) {
@@ -89,8 +90,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, @Nullable String key) {
         assert key != null;
         if (key.equals(KEY_USE_DEVICE_LOCATION) || key.equals(KEY_CUSTOM_LOCATION)) {
-            updateSummary();
+            showRestartDialog(this::updateSummary);
+            requireActivity().recreate();
         }
+
     }
     private void updateSummary() {
         SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
@@ -106,11 +109,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             if (customLocationPref != null) {
                 customLocationPref.setEnabled(false);
                 customLocationPref.setSummary("Using Device Location");
+
             }
         } else {
             if (customLocationPref != null) {
                 customLocationPref.setEnabled(true);
                 customLocationPref.setSummary("Current: " + customLocation);
+
             }
         }
     }
