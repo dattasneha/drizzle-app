@@ -49,3 +49,5 @@ Drizzle is a weather forecast app built using Java, allowing users to check curr
 * Networking: Retrofit
 * DI : Hilt
 * State management : ViewModel
+
+[Download App](https://github.com/dattasneha/drizzle-app/releases/download/v1.0/app-release.apk)  
