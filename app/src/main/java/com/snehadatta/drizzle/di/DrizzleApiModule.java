@@ -45,13 +45,14 @@ public final class DrizzleApiModule {
     }
     @Provides
     @Singleton
-    public MainApi providesAuthApi(Retrofit retrofit) {
+    public MainApi providesMainApi(Retrofit retrofit) {
         return retrofit.create(MainApi.class);
     }
 
     @Provides
-    public MainRepository providesOrderHistoryRepository(MainRepositoryImpl impl) {
+    public MainRepository providesMainRepository(MainRepositoryImpl impl) {
         return impl;
+
     }
 
 }
